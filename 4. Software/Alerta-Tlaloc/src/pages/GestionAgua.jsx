@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import './GestionAgua.css'
 
-const API_URL = 'http://localhost:8000/api/gestion-agua'
-const PREDICTIONS_URL = 'http://localhost:8000/api/predicciones'
+// Lee la variable de entorno, y si no existe (porque estás probando local), usa localhost por defecto
+const BASE_URL = import.meta.env.VITE_API_URL;
+
+const API_URL = `${BASE_URL}/api/gestion-agua`;
+const PREDICTIONS_URL = `${BASE_URL}/api/predicciones`;
 
 const GestionAgua = () => {
   const [activeTab, setActiveTab] = useState('enVivo')

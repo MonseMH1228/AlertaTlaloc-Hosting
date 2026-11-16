@@ -5,8 +5,17 @@ import html2canvas from 'html2canvas'
 import './Dashboard.css'
 import JSZip from 'jszip'
 
+const BASE_URL = import.meta.env.VITE_API_URL ;
+
+const CONSUMO_URL = `${BASE_URL}/api/consumo`;
+const ALARMAS_URL = `${BASE_URL}/api/alarmas`;
+const SENSORES_URL = `${BASE_URL}/api/sensores`;
+
 //Hook para el uso de la API
 function Dashboard() {
+
+  
+
   const [range, setRange] = useState('31')
   const [showAllAlarms, setShowAllAlarms] = useState(false)
 
@@ -51,13 +60,13 @@ function Dashboard() {
     async function fetchDashboardData() {
       try {
         const [resConsumo, resSensores, resAlarmas] = await Promise.all([
-          fetch(`http://localhost:8000/api/consumo`, {
+          fetch(`${CONSUMO_URL}`, {
             signal: controller.signal,
           }),
-          fetch('http://localhost:8000/api/sensores', {
+          fetch(`${SENSORES_URL}`, {
             signal: controller.signal,
           }),
-          fetch(`http://localhost:8000/api/alarmas`, {
+          fetch(`${ALARMAS_URL}`, {
             signal: controller.signal,
           }),
         ])
@@ -1133,13 +1142,13 @@ useEffect(() => {
 
         // Hacemos las peticiones enviando el parámetro de días basados en la última fecha de la BD
         const [resConsumo, resSensores, resAlarmas] = await Promise.all([
-          fetch(`http://localhost:8000/api/consumo${queryParam}`, {
+          fetch(`${CONSUMO_URL}${queryParam}`, {
             signal: controller.signal,
           }),
-          fetch(`http://localhost:8000/api/sensores${queryParam}`, {
+          fetch(`${SENSORES_URL}${queryParam}`, {
             signal: controller.signal,
           }),
-          fetch(`http://localhost:8000/api/alarmas${queryParam}`, {
+          fetch(`${ALARMAS_URL}${queryParam}`, {
             signal: controller.signal,
           }),
         ])
